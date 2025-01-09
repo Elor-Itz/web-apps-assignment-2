@@ -1,0 +1,70 @@
+### Add a New Post
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{ 
+  "title": "First Post",
+  "content": "This is my first post!",
+  "sender": "Elor"
+}
+
+### Get post by id
+
+GET http://localhost:3000/posts/677c451bdb9d5917464523b9
+
+### Get all posts by sender
+
+GET http://localhost:3000/posts?sender=Elor
+
+### Get all posts
+
+GET http://localhost:3000/posts
+
+### Update post
+
+PUT http://localhost:3000/posts/677c451bdb9d5917464523b9
+Content-Type: application/json
+
+{ 
+  "title": "First Post - Edited",
+  "content": "This is my first post, now edited!",
+  "sender": "Elor"
+}
+
+### Delete post
+
+DELETE http://localhost:3000/posts/677c451bdb9d5917464523b9
+
+### Add a new comment
+
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{ 
+  "postId": "677c451bdb9d5917464523b9",
+  "content": "This is my first comment!",
+  "sender": "Adi"
+}
+
+### Get all comment
+
+GET http://localhost:3000/comments
+
+### Get comments by post id
+
+GET http://localhost:3000/comments?postId=677c451bdb9d5917464523b9
+
+### Update comment
+
+PUT http://localhost:3000/comments/677c4d3e0b9a6dc090dd9772
+Content-Type: application/json
+
+{ 
+  "postId": "677c451bdb9d5917464523b9",
+  "content": "This is my first comment, edited!",
+  "sender": "Adi"
+}
+
+### Delete comment
+
+DELETE http://localhost:3000/comments/677c4d3e0b9a6dc090dd9772
