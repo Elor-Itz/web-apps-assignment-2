@@ -2,14 +2,14 @@ import express from "express";
 const router = express.Router();
 import commentsController from "../controllers/commentController";
 
-router.post("/", commentsController.addComment);
+router.post("/", commentsController.create.bind(commentsController));
 
-router.get("/", commentsController.getAllComments);
+router.get("/", commentsController.getAll.bind(commentsController));
 
 router.get("/:postId", commentsController.getCommentsByPostId);
 
-router.put("/:id", commentsController.updateComment);
+router.put("/:id", commentsController.updateItem.bind(commentsController));
 
-router.delete("/:id", commentsController.deleteComment);
+router.delete("/:id", commentsController.deleteItem.bind);
 
 export default router;
