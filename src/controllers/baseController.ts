@@ -32,7 +32,7 @@ class BaseController<T> {
             if (item != null) {
                 res.send(item);
             } else {
-                res.status(404).send("not found");
+                res.status(404).send("Item not found");
             }
         } catch (error) {
             res.status(400).send(error);
@@ -50,6 +50,20 @@ class BaseController<T> {
         }
     };
 
+    // Update an item by id
+    async updateItem(req: Request, res: Response) {
+        const id = req.params.id;
+        if (id) {
+          try {
+            const body = req.body;
+            const update = await this.model.findByIdAndUpdate(id, body, { new: true });
+            res.status(200).send(update);
+          } catch (error) {
+            res.status(400).send(error);
+          }
+        }        
+    };
+
     // Delete an item by id
     async deleteItem(req: Request, res: Response) {
         const id = req.params.id;
@@ -60,7 +74,6 @@ class BaseController<T> {
             res.status(400).send(error);
         }
     };
-
 }
 
 export default BaseController
