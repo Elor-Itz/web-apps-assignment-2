@@ -1,6 +1,41 @@
+### Register a new user
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "Elor@elormail",
+  "password": "123456"
+}
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "Elor@elormail",
+  "password": "123456"
+}
+
+### Refresh token
+POST http://localhost:3000/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzgzZDM3ZmNlYTVhODYwODM5YzdiZGMiLCJyYW5kb20iOiIwLjMzMTE2NjcyMjc3NjMxMDIiLCJpYXQiOjE3MzY2OTI5MTksImV4cCI6MTczNzI5NzcxOX0.v6MuIv3TeBnoz2toHCsZDEakFNWypi8uD52YaLBzrj8"
+}
+
+### Logout
+POST http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzgzZDM3ZmNlYTVhODYwODM5YzdiZGMiLCJyYW5kb20iOiIwLjMzMTE2NjcyMjc3NjMxMDIiLCJpYXQiOjE3MzY2OTI5MTksImV4cCI6MTczNzI5NzcxOX0.v6MuIv3TeBnoz2toHCsZDEakFNWypi8uD52YaLBzrj8"
+}
+
 ### Add a New Post
 POST http://localhost:3000/posts
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzgzZDM3ZmNlYTVhODYwODM5YzdiZGMiLCJyYW5kb20iOiIwLjMwMTc1Mjg4MTY4NjE2NTkiLCJpYXQiOjE3MzY2OTI2ODAsImV4cCI6MTczNjcwMzQ4MH0.pk10Z8UOVfnd5vF28vlMtXSDIS8ohRUR8cBLp2KaBG4
 
 { 
   "title": "First Post",
