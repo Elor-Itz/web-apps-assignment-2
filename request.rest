@@ -21,7 +21,7 @@ POST http://localhost:3000/auth/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzgzZDM3ZmNlYTVhODYwODM5YzdiZGMiLCJyYW5kb20iOiIwLjMzMTE2NjcyMjc3NjMxMDIiLCJpYXQiOjE3MzY2OTI5MTksImV4cCI6MTczNzI5NzcxOX0.v6MuIv3TeBnoz2toHCsZDEakFNWypi8uD52YaLBzrj8"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzgzZTYwNGI0YmZlZjI2ODE5OGExYmQiLCJyYW5kb20iOiIwLjA4OTM3ODMxMzcyODczNjA2IiwiaWF0IjoxNzM2Njk3NDUzLCJleHAiOjE3MzczMDIyNTN9.JUcIbLuGlmyIqytTv4KtlQQA2gZCpD-h3CAVathRZvY"
 }
 
 ### Logout
