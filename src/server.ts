@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import express, { Express } from "express";
 import postRoutes from "./routes/postRoutes";
 import commentRoutes from "./routes/commentRoutes";
-//import authRoutes from "./routes/authRoutes";
+import authRoutes from "./routes/authRoutes";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
 
@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use((req, res, next) => {
+app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
   res.header("Access-Control-Allow-Methods", "*");
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 app.use("/posts", postRoutes);
 app.use("/comments", commentRoutes);
-//app.use("/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 // Swagger documentation
 const options = {
