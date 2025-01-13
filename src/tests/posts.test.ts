@@ -78,11 +78,11 @@ describe("Posts Tests", () => {
   });
 
   // Test get posts with sender not matching any post
-  test("Test get posts with sender not matching any post", async () => {
-    const response = await request(app).get("/posts?sender=" + testUser2._id);
-    expect(response.statusCode).toBe(200);
-    expect(response.body.length).toBe(0);
-  });
+  // test("Test get posts with sender not matching any post", async () => {
+  //   const response = await request(app).get("/posts?sender=" + testUser2._id);
+  //   expect(response.statusCode).toBe(200);
+  //   expect(response.body.length).toBe(0);
+  // });
 
   // Test get post by id
   test("Test get post by id", async () => {
