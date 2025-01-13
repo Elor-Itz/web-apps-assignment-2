@@ -5,7 +5,7 @@ import { authMiddleware } from "../controllers/authController";
 
 router.get("/", commentsController.getAll.bind(commentsController));
 
-router.get("/:postId", commentsController.getCommentsByPostId);
+//router.get("/:postId", commentsController.getCommentsByPostId);
 
 router.post("/", authMiddleware, commentsController.createItem.bind(commentsController));
 
