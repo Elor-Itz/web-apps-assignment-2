@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import commentsController from "../controllers/commentController";
 
-router.post("/", commentsController.create.bind(commentsController));
+router.post("/", commentsController.createItem.bind(commentsController));
 
 router.get("/", commentsController.getAll.bind(commentsController));
 

@@ -45,7 +45,7 @@ import authController from "../controllers/authController";
 * @swagger
 * /auth/register:
 *   post:
-*     summary: registers a new user
+*     summary: Registers a new user
 *     tags: [Auth]
 *     requestBody:
 *       required: true

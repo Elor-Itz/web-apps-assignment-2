@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Document } from 'mongoose';
 
+// Register function
 const register = async (req: Request, res: Response) => {
     try {
         const password = req.body.password;
@@ -24,7 +25,7 @@ type tTokens = {
     refreshToken: string
 }
 
-// generate token function
+// Generate token function
 const generateToken = (userId: string): tTokens | null => {
     if (!process.env.TOKEN_SECRET) {
         return null;
@@ -43,23 +44,25 @@ const generateToken = (userId: string): tTokens | null => {
         random: random
     },
         process.env.TOKEN_SECRET,
-        { expiresIn: process.env.REFRESH_TOKEN_EXPIRES });
+        { expiresIn: process.env.REFRESH_TOKEN_EXPIRES });    
+
     return {
         accessToken: accessToken,
         refreshToken: refreshToken
     };
 };
-// login function
+
+// Login function
 const login = async (req: Request, res: Response) => {
     try {
         const user = await userModel.findOne({ email: req.body.email });
         if (!user) {
-            res.status(400).send('wrong username or password');
+            res.status(400).send('Wrong username or password');
             return;
         }
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) {
-            res.status(400).send('wrong username or password');
+            res.status(400).send('Wrong username or password');
             return;
         }
         if (!process.env.TOKEN_SECRET) {
@@ -95,7 +98,8 @@ type tUser = Document<unknown, {}, IUser> & IUser & Required<{
 }> & {
     __v: number;
 }
-// verify refresh token function
+
+// Verify refresh token function
 const verifyRefreshToken = (refreshToken: string | undefined) => {
     return new Promise<tUser>((resolve, reject) => {
         //get refresh token from body
@@ -140,7 +144,7 @@ const verifyRefreshToken = (refreshToken: string | undefined) => {
     });
 }
 
-// logout function
+// Logout function
 const logout = async (req: Request, res: Response) => {
     try {
         const user = await verifyRefreshToken(req.body.refreshToken);
@@ -151,7 +155,7 @@ const logout = async (req: Request, res: Response) => {
     }
 };
 
-// refresh function
+// Refresh function
 const refresh = async (req: Request, res: Response) => {
     try {
         const user = await verifyRefreshToken(req.body.refreshToken);
@@ -186,7 +190,7 @@ type Payload = {
     _id: string;
 };
 
-// middleware to check if the user is authenticated
+// Middleware to check if the user is authenticated
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authorization = req.header('authorization');
     const token = authorization && authorization.split(' ')[1];
