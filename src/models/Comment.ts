@@ -9,7 +9,6 @@ export interface IComment {
 const commentSchema = new mongoose.Schema<IComment>({
   postId: {
     type: String,
-    ref: 'Post',
     required: true 
   },
   content: {
@@ -18,7 +17,6 @@ const commentSchema = new mongoose.Schema<IComment>({
   },
   sender: {
       type: String,
-      ref: 'User', 
       required: true,
     },  
 });
