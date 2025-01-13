@@ -52,5 +52,5 @@ describe("Comments Tests", () => {
     expect(response.body.postId).toBe(testComments[0].postId);
     expect(response.body.content).toBe(testComments[0].content);    
     expect(response.body.sender).toBe(testComments[0].sender);
-  });
+  });  
 });

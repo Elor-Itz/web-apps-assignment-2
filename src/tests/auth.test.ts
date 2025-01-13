@@ -126,6 +126,22 @@ describe("Auth Tests", () => {
     testUser.accessToken = response.body.accessToken;
     testUser.refreshToken = response.body.refreshToken;
   });
+
+  // Test refresh token fail
+  test("Test Invalid Refresh Token", async () => {
+    const refreshRes = await request(app).post("/auth/refresh").send({
+      refreshToken: "invalidToken"
+    });
+    expect(refreshRes.statusCode).toBe(400);
+    expect(refreshRes.text).toBe("Invalid refresh token");
+  });
+
+  // Test missing refresh token
+  test("Test Missing Refresh Token", async () => {
+    const refreshRes = await request(app).post("/auth/refresh").send({});
+    expect(refreshRes.statusCode).toBe(400);
+    expect(refreshRes.text).toBe("Refresh token is required");
+  });
   
   // Test double use refresh token
   test("Double use refresh token", async () => {
