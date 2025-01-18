@@ -3,13 +3,12 @@ import mongoose from "mongoose";
 export interface IComment {
   postId: string;
   content: string;
-  sender: string;  
+  sender: String;  
 }
 
 const commentSchema = new mongoose.Schema<IComment>({
   postId: {
     type: String,
-    ref: 'Post',
     required: true 
   },
   content: {
@@ -17,9 +16,9 @@ const commentSchema = new mongoose.Schema<IComment>({
     required: true 
   },
   sender: {
-    type: String, 
-    required: true
-  },  
+      type: String,
+      required: true,
+    },  
 });
 
 const commentsModel = mongoose.model<IComment>("Comments", commentSchema);

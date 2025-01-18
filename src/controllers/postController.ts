@@ -1,5 +1,5 @@
-import postModel, { IPost } from "../models/Post";
 import { Request, Response } from "express";
+import postModel, { IPost } from "../models/Post";
 import BaseController from "./baseController";
 
 class PostsController extends BaseController<IPost> {
@@ -7,22 +7,15 @@ class PostsController extends BaseController<IPost> {
       super(postModel);
   }
 
-  // Get posts filtered by sender
-  async getPostsBySender(req: Request, res: Response): Promise<void> {
-    const sender = req.query.sender as string;
-
-    try {
-      if (sender) {
-        const posts = await this.model.find({ sender });
-        res.send(posts);
-      } else {
-        const posts = await this.model.find();
-        res.send(posts);
+  async createItem(req: Request, res: Response) {
+      const userId = req.params.userId;
+      const post = {
+          ...req.body,
+          sender: userId
       }
-    } catch (error) {
-      res.status(400).send((error as Error).message);
-    }
-  }
+      req.body = post;
+      super.createItem(req, res);
+  };
 }
 
 export default new PostsController();

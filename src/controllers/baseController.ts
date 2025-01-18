@@ -9,10 +9,10 @@ class BaseController<T> {
 
     // Get all items
     async getAll(req: Request, res: Response) {
-        const filter = req.query.owner;
-        try {
+        const filter = req.query.sender;
+        try {            
             if (filter) {
-                const item = await this.model.find({ owner: filter });
+                const item = await this.model.find({ sender: filter });
                 res.send(item);
             } else {
                 const items = await this.model.find();
@@ -40,7 +40,7 @@ class BaseController<T> {
     };
 
     // Create an item
-    async create(req: Request, res: Response) {
+    async createItem(req: Request, res: Response) {
         const body = req.body;
         try {
             const item = await this.model.create(body);

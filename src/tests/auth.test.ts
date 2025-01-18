@@ -102,7 +102,7 @@ describe("Auth Tests", () => {
     const response = await request(app).post("/posts").send({
       title: "Test Post",
       content: "Test Content",
-      sender: "Elor",
+      sender: testUser._id,
     });
     expect(response.statusCode).not.toBe(201);
     const response2 = await request(app).post("/posts").set(
@@ -110,10 +110,10 @@ describe("Auth Tests", () => {
     ).send({
       title: "Test Post",
       content: "Test Content",
-      sender: "Elor",
+      sender: testUser._id,
     });
     expect(response2.statusCode).toBe(201);
-  });
+  });  
 
   // Test refresh token
   test("Test refresh token", async () => {
@@ -127,6 +127,22 @@ describe("Auth Tests", () => {
     testUser.refreshToken = response.body.refreshToken;
   });
 
+  // Test refresh token fail
+  test("Test Invalid Refresh Token", async () => {
+    const refreshRes = await request(app).post("/auth/refresh").send({
+      refreshToken: "invalidToken"
+    });
+    expect(refreshRes.statusCode).toBe(400);
+    expect(refreshRes.text).toBe("Invalid refresh token");
+  });
+
+  // Test missing refresh token
+  test("Test Missing Refresh Token", async () => {
+    const refreshRes = await request(app).post("/auth/refresh").send({});
+    expect(refreshRes.statusCode).toBe(400);
+    expect(refreshRes.text).toBe("Refresh token is required");
+  });
+  
   // Test double use refresh token
   test("Double use refresh token", async () => {
     const response = await request(app).post(baseUrl + "/refresh").send({
@@ -164,9 +180,17 @@ describe("Auth Tests", () => {
     expect(response3.statusCode).not.toBe(200);
 
   });
+
+  // Test logout fail
+  test("Test logout fail", async () => {
+    const response = await request(app).post(baseUrl + "/logout").send({
+      refreshToken: testUser.refreshToken,
+    });
+    expect(response.statusCode).not.toBe(200);
+  });
   
   // Test timeout token
-  jest.setTimeout(10000);
+  jest.setTimeout(30000);
   test("Test timeout token ", async () => {
     const response = await request(app).post(baseUrl + "/login").send(testUser);
     expect(response.statusCode).toBe(200);
@@ -180,7 +204,7 @@ describe("Auth Tests", () => {
     ).send({
       title: "Test Post",
       content: "Test Content",
-      sender: "Elor",
+      sender: testUser._id,
     });
     expect(response2.statusCode).not.toBe(201);
 
@@ -195,7 +219,7 @@ describe("Auth Tests", () => {
     ).send({
       title: "Test Post",
       content: "Test Content",
-      sender: "Elor",
+      sender: testUser._id,
     });
     expect(response4.statusCode).toBe(201);
   });

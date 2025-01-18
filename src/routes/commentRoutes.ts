@@ -1,15 +1,16 @@
 import express from "express";
 const router = express.Router();
 import commentsController from "../controllers/commentController";
-
-router.post("/", commentsController.create.bind(commentsController));
+import { authMiddleware } from "../controllers/authController";
 
 router.get("/", commentsController.getAll.bind(commentsController));
 
-router.get("/:postId", commentsController.getCommentsByPostId);
+//router.get("/:postId", commentsController.getCommentsByPostId);
 
-router.put("/:id", commentsController.updateItem.bind(commentsController));
+router.post("/", authMiddleware, commentsController.createItem.bind(commentsController));
 
-router.delete("/:id", commentsController.deleteItem.bind);
+router.put("/:id", authMiddleware, commentsController.updateItem.bind(commentsController));
+
+router.delete("/:id", authMiddleware, commentsController.deleteItem.bind(commentsController));
 
 export default router;
