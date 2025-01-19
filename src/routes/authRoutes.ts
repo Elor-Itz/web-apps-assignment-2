@@ -6,7 +6,7 @@ import authController from "../controllers/authController";
 * @swagger
 * tags:
 *   name: Auth
-*   description: The Authentication API
+*   description: API for managing user authentication
 */
 
 /**
