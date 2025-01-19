@@ -2,10 +2,10 @@
   "scripts": {
     "dev": "cp .env_dev .env && nodemon ./src/app.ts",
     "start": "cp .env_dev .env tsc && node ./dist/app.js",
-    "test": "shx cp .env_test .env && jest --coverage --detectOpenHandles --forceExit --runInBand",
-    "testAuth": "shx cp .env_test .env && jest --coverage --detectOpenHandles --forceExit --runInBand src/tests/auth.test.ts",
-    "testPost": "shx cp .env_test .env && jest --coverage --detectOpenHandles --forceExit --runInBand src/tests/posts.test.ts",
-    "testComment": "shx cp .env_test .env && jest --coverage --detectOpenHandles --forceExit --runInBand src/tests/comments.test.ts",
+    "test": "cp .env_test .env && jest --coverage --detectOpenHandles --forceExit --runInBand",    
+    "testAuth": "cp .env_test .env && jest --detectOpenHandles --forceExit --runInBand src/tests/auth.test.ts",
+    "testPost": "cp .env_test .env && jest --detectOpenHandles --forceExit --runInBand src/tests/posts.test.ts",
+    "testComment": "cp .env_test .env && jest --detectOpenHandles --forceExit --runInBand src/tests/comments.test.ts",    
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {

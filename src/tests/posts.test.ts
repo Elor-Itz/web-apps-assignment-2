@@ -21,8 +21,8 @@ const testUser2: User = {
 beforeAll(async () => {
   console.log("beforeAll");
   app = await initApp();
-  await postModel.deleteMany();
   await userModel.deleteMany();
+  await postModel.deleteMany();  
   await request(app).post("/auth/register").send(testUser);
   const res = await request(app).post("/auth/login").send(testUser);  
   testUser.token = res.body.accessToken;
@@ -75,14 +75,7 @@ describe("Posts Tests", () => {
     const response = await request(app).get("/posts?sender=");
     expect(response.statusCode).toBe(200);
     expect(response.body.length).toBeGreaterThanOrEqual(1);
-  });
-
-  // Test get posts with sender not matching any post
-  // test("Test get posts with sender not matching any post", async () => {
-  //   const response = await request(app).get("/posts?sender=" + testUser2._id);
-  //   expect(response.statusCode).toBe(200);
-  //   expect(response.body.length).toBe(0);
-  // });
+  }); 
 
   // Test get post by id
   test("Test get post by id", async () => {

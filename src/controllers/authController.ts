@@ -99,28 +99,23 @@ type tUser = Document<unknown, {}, IUser> & IUser & Required<{
     __v: number;
 }
 
-// Verify refresh token function
 const verifyRefreshToken = (refreshToken: string | undefined) => {
     return new Promise<tUser>((resolve, reject) => {
-        //get refresh token from body
         if (!refreshToken) {
-            reject("fail");
+            reject("Refresh token is required");
             return;
         }
-        //verify token
         if (!process.env.TOKEN_SECRET) {
-            reject("fail");
+            reject("Token secret is missing");
             return;
         }
         jwt.verify(refreshToken, process.env.TOKEN_SECRET, async (err: any, payload: any) => {
             if (err) {
                 reject("fail");
-                return
+                return;
             }
-            //get the user id fromn token
             const userId = payload._id;
             try {
-                //get the user form the db
                 const user = await userModel.findById(userId);
                 if (!user) {
                     reject("fail");
@@ -142,12 +137,19 @@ const verifyRefreshToken = (refreshToken: string | undefined) => {
             }
         });
     });
-}
+};
 
 // Logout function
 const logout = async (req: Request, res: Response) => {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+        res.status(400).json({ message: "Refresh token is required" });
+        return;
+    }
+
     try {
-        const user = await verifyRefreshToken(req.body.refreshToken);
+        const user = await verifyRefreshToken(refreshToken);        
         await user.save();
         res.status(200).send("success");
     } catch (err) {
@@ -174,15 +176,13 @@ const refresh = async (req: Request, res: Response) => {
         }
         user.refreshToken.push(tokens.refreshToken);
         await user.save();
-        res.status(200).send(
-            {
-                accessToken: tokens.accessToken,
-                refreshToken: tokens.refreshToken,
-                _id: user._id
-            });
-        //send new token
+        res.status(200).send({
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken,
+            _id: user._id
+        });
     } catch (err) {
-        res.status(400).send("fail");
+        res.status(400).send(err);
     }
 };
 
